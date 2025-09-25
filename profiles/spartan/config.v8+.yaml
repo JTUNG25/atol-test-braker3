@@ -36,3 +36,5 @@ apptainer-args: "-B $PWD,$TMPDIR,/data \
   -H $(mktemp -d) \
   --pwd $PWD \
   --containall --cleanenv --writable-tmpfs"
+rerun-triggers:
+  - mtime
