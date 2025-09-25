@@ -36,7 +36,7 @@ rule target:
 # n.b. you have to cd to wd, otherwise braker overwrites the input file
 rule braker3:
     input:
-        fasta=("results/{genome}/reformat/genome.fa"),
+        fasta=("results/{genome}/reformat/genome.fasta"),
     output:
         gff="results/{genome}/braker3/braker3_results/annot.gff3",
     params:
