@@ -19,6 +19,7 @@ query_genome = [
     "P_vit",
     "P_halo",
     "N_erebi",
+    "N_cryptoides"
 ]
 #########
 # RULES #
