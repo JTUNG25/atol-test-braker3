@@ -89,6 +89,9 @@ rule reformat:
         temp("results/{genome}/reformat/genome.fasta"),
     log:
         "logs/reformat/{genome}.log",
+    resources:
+        runtime=10,
+        mem_mb=int(4e3),
     container:
         bbmap
     shell:
