@@ -19,8 +19,9 @@ query_genome = [
     "P_vit",
     "P_halo",
     "N_erebi",
-    "N_cryptoides"
+    "N_cryptoides",
 ]
+
 #########
 # RULES #
 #########
@@ -29,24 +30,41 @@ query_genome = [
 rule target:
     input:
         expand(
-            "results/{genome}/braker3/braker3_results/annot.gff3", genome=query_genome
+            "results/{genome}/braker3/{genome}.{ext}",
+            genome=query_genome,
+            ext=["gff3", "gtf"],
         ),
+
+
+rule collect_braker_output:
+    input:
+        gff="results/{genome}/braker3/braker/braker.gff3",
+        gtf="results/{genome}/braker3/braker/braker.gtf",
+    output:
+        gff="results/{genome}/braker3/{genome}.gff3",
+        gtf="results/{genome}/braker3/{genome}.gtf",
+    container:
+        braker3
+    shell:
+        "cp {input.gff} {output.gff} ; "
+        "cp {input.gtf} {output.gtf} "
 
 
 # braker3
 # n.b. you have to cd to wd, otherwise braker overwrites the input file
 rule braker3:
     input:
-        fasta=("results/{genome}/reformat/genome.fasta"),
+        fasta="results/{genome}/reformat/genome.fasta",
     output:
-        gff="results/{genome}/braker3/braker3_results/annot.gff3",
+        gff="results/{genome}/braker3/braker/braker.gff3",
+        gtf="results/{genome}/braker3/braker/braker.gtf",
     params:
         wd=lambda wildcards, output: Path(output.gff).parent.parent.resolve(),
         fasta=lambda wildcards, input: Path(input.fasta).resolve(),
     log:
-        Path("logs/braker3_results/{genome}.log").resolve(),
+        Path("logs/braker3/{genome}.log").resolve(),
     benchmark:
-        Path("logs/braker3_results/benchmark/{genome}.txt").resolve()
+        Path("logs/braker3/benchmark/{genome}.txt").resolve()
     threads: 32
     resources:
         runtime=int(24 * 60),
