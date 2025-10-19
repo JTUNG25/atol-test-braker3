@@ -32,8 +32,19 @@ rule target:
         expand(
             "results/{genome}/braker3/{genome}.{ext}",
             genome=query_genome,
-            ext=["gff3", "gtf"],
+            ext=["gff3", "gtf", "gtf.gz"],
         ),
+
+
+rule compress_braker_output:
+    input:
+        gtf="results/{genome}/braker3/{genome}.gtf",
+    output:
+        gtf_gz="results/{genome}/braker3/{genome}.gtf.gz",
+    container:
+        braker3
+    shell:
+        "gzip -k {input.gtf}"
 
 
 rule collect_braker_output:
