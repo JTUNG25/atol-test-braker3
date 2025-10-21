@@ -80,7 +80,7 @@ rule braker3:
     threads: 32
     resources:
         runtime=int(24 * 60),
-        mem_mb=int(64e3),
+        mem_mb=int(256e3),
     container:
         braker3
     shell:
@@ -98,7 +98,7 @@ rule reformat:
     input:
         "data/genomes/{genome}.fasta",
     output:
-        "results/{genome}/reformat/genome.fasta",
+        temp("results/{genome}/reformat/genome.fasta"),
     log:
         "logs/reformat/{genome}.log",
     resources:
@@ -110,6 +110,7 @@ rule reformat:
         "reformat.sh "
         "fixheaders=t "
         "trimreaddescription=t "
+        "-Xmx{resources.mem_mb}m "
         "in={input} "
         "out={output} "
         "2>{log}"
