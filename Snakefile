@@ -20,6 +20,7 @@ query_genome = [
     "P_halo",
     "N_erebi",
     "N_cryptoides",
+    "N_forsteri"
 ]
 
 #########
