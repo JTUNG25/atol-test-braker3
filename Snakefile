@@ -20,7 +20,7 @@ query_genome = [
     "P_halo",
     "N_erebi",
     "N_cryptoides",
-    "N_forsteri"
+    "N_forsteri",
 ]
 
 #########
@@ -98,7 +98,7 @@ rule reformat:
     input:
         "data/genomes/{genome}.fasta",
     output:
-        temp("results/{genome}/reformat/genome.fasta"),
+        "results/{genome}/reformat/genome.fasta",
     log:
         "logs/reformat/{genome}.log",
     resources:
