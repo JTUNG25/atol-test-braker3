@@ -103,7 +103,7 @@ rule reformat:
         "logs/reformat/{genome}.log",
     resources:
         runtime=20,
-        mem_mb=int(16e3),
+        mem_mb=int(32e3),
     container:
         bbmap
     shell:
