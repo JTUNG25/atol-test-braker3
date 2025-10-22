@@ -79,7 +79,7 @@ rule braker3:
         Path("logs/braker3/benchmark/{genome}.txt").resolve()
     threads: 32
     resources:
-        runtime=int(24 * 60),
+        runtime=int(3 * 24 * 60),
         mem_mb=int(256e3),
     container:
         braker3
@@ -89,7 +89,7 @@ rule braker3:
         "--gff3 "
         "--threads {threads} "
         "--species={wildcards.genome} "
-        "--genome={params.fasta}"
+        "--genome={params.fasta} "
         "&> {log}"
 
 
