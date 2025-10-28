@@ -67,7 +67,8 @@ rule braker3:
         fasta=lambda wildcards, input: Path(input.fasta).resolve(),
         bam=lambda wildcards, input: Path(input.bam).resolve(),
     log:
-        Path("logs/braker3/{genome}_rnaseq.log").resolve(),
+        log=Path("logs/braker3/{genome}_rnaseq.log").resolve(),
+        braker_log="results/{genome}/braker3/rnaseq_evidence/braker/braker.log",
     benchmark:
         Path("logs/braker3/benchmark/{genome}_rnaseq.txt").resolve()
     threads: 32
@@ -78,13 +79,15 @@ rule braker3:
         braker3
     shell:
         "cd {params.wd} || exit 1 && "
+        "pwd && "
+        "ls -lhrt && "
         "braker.pl "
         "--gff3 "
         "--threads {threads} "
         "--species={wildcards.genome} "
         "--genome={params.fasta} "
         "--bam={params.bam} "
-        "&> {log}"
+        "&> {log.log}"
 
 
 # n.b. whitespace in the header breaks braker
