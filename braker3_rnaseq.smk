@@ -10,7 +10,7 @@ braker3 = "docker://teambraker/braker3:v3.0.7.1"
 
 # config
 query_genome = [
-    "E_pictum",
+    "T_triandra",
     "R_gram",
 ]
 
