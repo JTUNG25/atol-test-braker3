@@ -12,6 +12,7 @@ braker3 = "docker://teambraker/braker3:v3.0.7.1"
 query_genome = [
     "T_triandra",
     "R_gram",
+    "A_magna",
 ]
 
 #########
